@@ -1,0 +1,119 @@
+class Details:
+    def __init__(self,uid):
+        self.a=input('Enter Name:')
+        self.b=input('Enter Password:')
+        self.c=int(input('Enter Age:'))
+        self.uid=uid
+        self.d='Not Booked Yet'
+        self.e=0
+        self.st='Not Booked Yet'
+    def Pass(self,t):
+        while True:
+            h = int(input("\n1.Book Ticket\n2.Check Availability\n3.Cancel Ticket\n4.Exit\n"))
+            if h == 1:
+                self.e=int(input("\nBook Ticket:"))
+                if(self.e>t):
+                    print("\nOnly ",t," seats are Available..!")
+                else:
+                    self.d='Pending...'
+                    print('\nYour Tickets are Pending..!\n')
+            elif h == 2:
+                print(t," Seats Available..!")
+            elif h == 3:
+                f=int(input("\nNo of Tickets Cancel:"))
+                if f>self.e:
+                    print('\nEnter Valid Number of Tickets:')
+                else:
+                    self.d='Not Booked Yet'
+                    self.e-=f
+            elif h == 4:
+                break
+            else:
+                print("\nEnter Correct Option\n")
+class Data:
+    def __init__(self):
+        self.g=[]
+        self.ui=1
+        self.t=50
+d=Data()
+def signUp():
+    i=Details(d.ui)
+    d.g.append(i)
+    print('\nSignedUp Successfully..!')
+    print('Your User ID: ',d.ui)
+    d.ui+=1
+def signIn():
+    k=int(input('\nEnter User ID:'))
+    l=input('Enter Password:')
+    if d.ui<=k:
+        print('\nEnter Valid ID\n')
+    else:
+        for x in d.g:
+            if x.uid==k and x.b==l:
+                x.Pass(d.t)
+                break
+        else:
+            print('\nInvalid Password\n')
+def cashier():
+    while True:
+        m=int(input('\n1.Approve Ticket\n2.Cancel Ticket\n3.Exit\n'))
+        
+        if m==1:
+            print('User ID\t\tName\t\tAge\t\tTickets\t\tStatus')
+            for x in d.g:
+                print(x.uid,'\t\t',x.a,'\t\t',x.c,'\t\t',x.e,'\t\t',x.st)
+            k=int(input('\nEnter User Id to Approve:'))
+            if k>d.ui:
+                print('\nInvalid ID\n')
+            else:
+                for x in d.g:
+                    if x.uid==k:
+                        x.st='Approved'
+                        d.t-=x.e
+                        print('\nApproved Successfully\n')
+                        break
+                else:
+                    print('\nInvalid ID\n')
+        elif m==2:
+            print('User ID\t\tName\t\tAge\t\tTickets\t\tStatus')
+            for i in d.g:
+                print(i.uid,'\t\t',i.a,'\t\t',i.c,'\t\t',i.e,'\t\t',i.st)
+            k=int(input('\nEnter User Id to Cancel:'))
+            if k>d.ui:
+                print('\nInvalid  ID\n')
+            else:
+                for i in d.g:
+                    if i.uid==k:
+                        i.st='Cancelled'
+                        d.t+=i.e
+                        print('\nCancelled Successfully\n')
+                        break
+                else:
+                    print('\nInvalid User ID\n')
+        elif m==3:
+            break
+        else:
+            print('\nEnter Correct Option\n')
+        
+class Flight:
+    def __init__(self):
+        while True:
+            n = int(input("\n1.Cashier\n2.Passenger\n3.Exit\n\nEnter Your Choice:\n"))
+            if n == 1:
+                cashier()
+            elif n == 2:
+                while True:
+                    m=int(input('\n1.SignUp\n2.SignIn\n3.Exit\n'))
+                    if m==3:
+                        break
+                    elif m==1:
+                        signUp()
+                    elif m==2:
+                        signIn()
+                    else:
+                        print('\nInvalid Option..!\n')
+            elif n==3:
+                print('\nThank You..Welcome Back..!')
+                break
+print("\t\t\t---Welcome to Flight Reservation---\t\t\t")
+Flight()
